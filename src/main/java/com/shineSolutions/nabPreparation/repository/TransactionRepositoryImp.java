@@ -18,8 +18,8 @@ public class TransactionRepositoryImp {
         return transactionRepository.findByUserId(userId);
     }
 
-    public String reliable() {
-        return "HystrixCommand reliable of Transaction";
+    public List<TransactionsEntity> reliable(long userId) {
+        return null;
     }
 
 }
