@@ -18,3 +18,13 @@ Wrap calls to the DB in Hystrix commands
 Create a docker image with the app
 
 /user/{userId}/transactions
+
+#2018-11-30 fix
+- Use Lombok instead of creating getters and setters
+- Add the gradle wrapper to the source code. https://medium.com/@bherbst/understanding-the-gradle-wrapper-a62f35662ab7
+- Add @EnableCircuitBreaker in the NabPreparationApplication class otherwise Hystrix won’t work
+- Modify fallback method to have the same signature as the method that the @HystrixCommand is on
+- Add yaml application.yml
+- Use Java’s LocalDate instead of Date
+- In the service class use the Lombok builder to create the dto objects
+- Add a .gitignore and ignore all log files, the build folder, the .idea folder etc
