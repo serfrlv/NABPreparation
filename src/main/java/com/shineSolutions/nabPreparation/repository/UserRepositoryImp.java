@@ -17,8 +17,8 @@ public class UserRepositoryImp {
         return (List<UsersEntity>) userRepository.findAll();
     }
 
-    public String reliable() {
-        return "HystrixCommand reliable of User";
+    public List<UsersEntity> reliable() {
+        return null;
     }
 
 }
