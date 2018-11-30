@@ -8,7 +8,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="users")
-
+@Getter
+@Setter
+@ToString
 public class UsersEntity {
 
     @Id
@@ -18,20 +20,4 @@ public class UsersEntity {
 
     @Column(name="name")
     private String name;
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
