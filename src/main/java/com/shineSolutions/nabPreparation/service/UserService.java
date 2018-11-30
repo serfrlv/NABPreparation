@@ -56,21 +56,21 @@ public class UserService implements IUserService{
 
 
     private UserDTO convertUserEntityToDto(UsersEntity usersEntity) {
-        UserDTO userDTO =new UserDTO();
-        userDTO.setUserName(usersEntity.getName());
-        userDTO.setUserId(usersEntity.getUserId());
-        return userDTO;
+        return UserDTO.builder()
+                .userId(usersEntity.getUserId())
+                .userName(usersEntity.getName())
+                .build();
     }
 
     private TransactionDTO convertTransactionToDto(TransactionsEntity transactionsEntity){
-        TransactionDTO transactionDTO = new TransactionDTO();
-        transactionDTO.setAmount(transactionsEntity.getAmount());
-        transactionDTO.setOriginUserId(transactionsEntity.getUserId());
-        transactionDTO.setOriginUserName(transactionsEntity.getUserName());
-        transactionDTO.setTargetUserId(transactionsEntity.getTargetUserId());
-        transactionDTO.setTargetUserName(transactionsEntity.getTargetUserName());
-        transactionDTO.setTransDate(Date.from(transactionsEntity.getDate().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
-        return transactionDTO;
+        return TransactionDTO.builder()
+                .originUserId(transactionsEntity.getUserId())
+                .originUserName(transactionsEntity.getUserName())
+                .amount(transactionsEntity.getAmount())
+                .targetUserId(transactionsEntity.getTargetUserId())
+                .targetUserName(transactionsEntity.getTargetUserName())
+                .transDate(transactionsEntity.getDate())
+                .build();
     }
 
 }
