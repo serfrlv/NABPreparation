@@ -10,8 +10,7 @@ import java.util.List;
 @Service
 public class UserRepositoryImp {
 
-    @Autowired
-    private UserRepository userRepository;
+        private UserRepository userRepository;
 
     @HystrixCommand(fallbackMethod = "reliable")
     public List<UsersEntity> findUsers(){
@@ -20,6 +19,11 @@ public class UserRepositoryImp {
 
     public List<UsersEntity> reliable() {
         return null;
+    }
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
 }
