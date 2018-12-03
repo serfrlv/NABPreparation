@@ -6,7 +6,9 @@ import com.shineSolutions.nabPreparation.model.UserDTO;
 import java.util.List;
 
 public interface IUserService {
-    public List<TransactionDTO> findTransactionsByUserId(Long userId);
+     List<TransactionDTO> findTransactionsByUserId(Long userId);
 
-    public List<UserDTO> findAllUsers();
+     List<UserDTO> findAllUsers();
+
+     List<TransactionDTO> findAllTransactions();
 }
