@@ -7,18 +7,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shineSolutions.nabPreparation.service.IUserService;
 
 @RestController
-@RequestMapping(value = "/user")
 public class UserController {
 
     @Autowired
     private IUserService userService;
 
-    @RequestMapping(value="/{userId}/transactions")
+    @RequestMapping(value="user/{userId}/transactions")
     public Iterable getTransactionsByUserId(@PathVariable String userId){
         return userService.findTransactionsByUserId(Long.valueOf(userId));
     }
 
-    @RequestMapping(value="/")
+    @RequestMapping(value="/user")
     public Iterable getUsers(){
         return userService.findAllUsers();
     }

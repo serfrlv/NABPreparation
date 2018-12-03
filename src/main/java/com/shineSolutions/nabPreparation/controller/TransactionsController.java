@@ -7,12 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/transactions")
 public class TransactionsController {
     @Autowired
     private IUserService userService;
 
-    @RequestMapping(value="/")
+    @RequestMapping(value="/transactions")
     public Iterable getAllTransactions(){
         return userService.findAllTransactions();
     }
