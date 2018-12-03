@@ -37,4 +37,10 @@ public class TestUserService {
         Collection<UsersEntity> users = this.usersRepo.findUsers();
         assertThat(users.size()).isEqualTo(3);
     }
+
+    @Test
+    public void shouldGetAllTransactions(){
+        Collection<TransactionsEntity> entities = this.transRepo.findAllTransactions();
+        assertThat(entities.size()).isEqualTo(3);
+    }
 }

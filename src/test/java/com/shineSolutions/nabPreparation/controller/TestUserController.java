@@ -13,6 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +37,8 @@ public class TestUserController {
     @Before
     public void init() {
         UserDTO u1 = UserDTO.builder().userName("James.Bond").userId(1l).build();
-        UserDTO u2 = UserDTO.builder().userName("James.Bond").userId(1l).build();
-        UserDTO u3 = UserDTO.builder().userName("James.Bond").userId(1l).build();
+        UserDTO u2 = UserDTO.builder().userName("Tom.Hanks").userId(2l).build();
+        UserDTO u3 = UserDTO.builder().userName("Jimmy.White").userId(3l).build();
         List<UserDTO> users = new ArrayList<>();
         users.add(u1);
         users.add(u2);
@@ -45,7 +46,7 @@ public class TestUserController {
         TransactionDTO t1 = TransactionDTO.builder()
                 .originUserId(1l).originUserName("James.Bond")
                 .targetUserId(2l).targetUserName("Tom.Hanks")
-                .amount(50).transDate(LocalDate.parse("2018-11-04")).build();
+                .amount(BigDecimal.valueOf(50)).transDate(LocalDate.parse("2018-11-04")).build();
         List<TransactionDTO> trans = new ArrayList<>();
         trans.add(t1);
         given(this.userService.findTransactionsByUserId(TEST_USER_ID)).willReturn(trans);
@@ -62,7 +63,7 @@ public class TestUserController {
     public void testGetTransactions(){
         List<TransactionDTO> trans = userService.findTransactionsByUserId(new Long(1));
         Assert.assertEquals(1,trans.size());
-        Assert.assertEquals(50,trans.get(0).getAmount(),0.0);
+        Assert.assertEquals(BigDecimal.valueOf(50),trans.get(0).getAmount());
     }
 
     @Test
@@ -70,6 +71,7 @@ public class TestUserController {
         mockMvc.perform(get("/user/{userId}/transactions", TEST_USER_ID))
                 .andExpect(status().isOk());
     }
+
     @Test
     public void testGetUsersSuccessful() throws Exception {
         mockMvc.perform(get("/user/"))
