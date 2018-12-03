@@ -1,18 +1,15 @@
 package com.shineSolutions.nabPreparation.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
 @Table(name="transactions")
-@Getter
-@Setter
-@ToString
+@Data
 public class TransactionsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +23,7 @@ public class TransactionsEntity {
     private String userName;
 
     @Column(name="amount")
-    private Double amount;
+    private BigDecimal amount;
 
     @Column(name="targetUserId")
     private Long targetUserId;
