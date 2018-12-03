@@ -1,9 +1,22 @@
-server.port: 8090
+server:
+  port: 8090
 
 # Enabling H2 Console
-spring.h2.console.enabled: true
+spring:
+  h2:
+    console:
+      enabled: true
+#flyway
+  flyway:
+    check-location: true
 
 # Actuator / Management
-management.endpoints.web.base-path: "/manage"
-management.endpoints.web.exposure.include: "*"
-management.endpoint.shutdown.enabled: true
+management:
+  endpoints:
+    web:
+      base-path: "/manage"
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
