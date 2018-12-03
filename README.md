@@ -28,3 +28,12 @@ Create a docker image with the app
 - Use Java’s LocalDate instead of Date
 - In the service class use the Lombok builder to create the dto objects
 - Add a .gitignore and ignore all log files, the build folder, the .idea folder etc
+
+#2018-12-03 fix
+- Use Lombok's @Data when appropriate https://projectlombok.org/features/Data or @Value for immutable objects  https://projectlombok.org/features/Value
+- Use BigDecimal instead of double for any fields that represent money.
+- Returning an empty list instead of returning null in your fallback methods which will cause problems when the calling code tries to access the variable.
+- Delete the application.properties as now have application.yml
+- Add the actuator starter to the project.  https://www.baeldung.com/spring-boot-actuatorsd.
+- Add the swagger Restful API documentation file.
+- Add the docker file.
