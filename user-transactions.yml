@@ -1,0 +1,93 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "User&Transactions"
+schemes:
+- "http"
+paths:
+  /user/:
+    get:
+      summary: "Retrieve a list of users"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Successful Response"
+          schema:
+            type: object
+            properties:
+              users:
+                type: array
+                items:
+                  $ref: "#/definitions/User"
+
+  /user/{userId}/transaction/:
+    get:
+      summary: "Retrieve related transactions by userId"
+      produces:
+      - "application/json"
+      parameters:
+      - $ref: "#/parameters/userIdParam"
+      responses:
+        200:
+          description: "Successful Response"
+          schema:
+            type: object
+            properties:
+              transactions:
+                $ref: "#/definitions/Transaction"
+
+  /transaction/:
+    get:
+      summary: "Retrieve all the transactions"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Successful Response"
+          schema:
+            type: object
+            properties:
+              transactions:
+                $ref: "#/definitions/Transaction"
+
+definitions:
+  User:
+    type: "object"
+    properties:
+      userId:
+        type: "integer"
+      userName:
+        type: "string"
+  Transaction:
+    type: "object"
+    properties:
+      originUserId:
+        type: "number"
+      originUserName:
+        type: "string"
+      targetUserId:
+        type: "integer"
+      targetUserName:
+        type: "string"
+      amount:
+        type: "number"
+      transDate:
+        type: "string"
+
+parameters:
+  userIdParam:
+    name: userId
+    in: path
+    type: string
+    required: true
+  albumIdPathParam:
+    name: albumId
+    in: path
+    type: string
+    required: true
+  artistIdPathParam:
+    name: artistId
+    in: path
+    type: string
+    required: true
