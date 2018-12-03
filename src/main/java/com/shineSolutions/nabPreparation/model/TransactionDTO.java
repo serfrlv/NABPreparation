@@ -1,15 +1,11 @@
 package com.shineSolutions.nabPreparation.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Setter
-@Getter
-@ToString
+@Data
 @Builder
 public class TransactionDTO {
 
@@ -17,6 +13,6 @@ public class TransactionDTO {
     private String originUserName;
     private Long targetUserId;
     private String targetUserName;
-    private double amount;
+    private BigDecimal amount;
     private LocalDate transDate;
 }
