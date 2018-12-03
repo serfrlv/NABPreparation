@@ -29,7 +29,7 @@ apply plugin: 'com.palantir.docker'
 group = 'com.shineSolutions'
 
 bootJar {
-	baseName = 'gs-spring-boot-docker'
+	baseName = 'nab-preparation-transaction-docker'
 	version =  '0.1.0'
 }
 
@@ -39,12 +39,13 @@ task unpack(type: Copy) {
 	from(zipTree(tasks.bootJar.outputs.files.singleFile))
 	into("build/dependency")
 }
+
 docker {
 	name "${project.group}/${bootJar.baseName}"
 	copySpec.from(tasks.unpack.outputs).into("dependency")
 	buildArgs(['DEPENDENCY': "dependency"])
 }
-// end::task[]
+// end::task[]s
 
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
@@ -65,6 +66,7 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok")
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly('com.h2database:h2')
+	compile("org.springframework.boot:spring-boot-starter-actuator")
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 
