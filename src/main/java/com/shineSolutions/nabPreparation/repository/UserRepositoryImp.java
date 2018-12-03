@@ -5,12 +5,14 @@ import com.shineSolutions.nabPreparation.model.UsersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserRepositoryImp {
 
-        private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @HystrixCommand(fallbackMethod = "reliable")
     public List<UsersEntity> findUsers(){
@@ -18,12 +20,7 @@ public class UserRepositoryImp {
     }
 
     public List<UsersEntity> reliable() {
-        return null;
-    }
-
-    @Autowired
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
+        return new ArrayList();
     }
 
 }
