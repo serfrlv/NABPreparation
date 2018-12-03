@@ -30,19 +30,19 @@ public class UserService implements IUserService{
     }
 
     /**
-     * Takes a list of {@link TransactionsEntity} by userId
+     * Takes a list of {@link TransactionDTO} by userId
      * @param userId
      * @return
      */
     @Override
     public List<TransactionDTO> findTransactionsByUserId(Long userId) {
-        List<TransactionsEntity> transactionsEntities =  transactionRepository.findAllByUserId(userId);
-        return transactionsEntities.stream().map(transactionsEntity -> convertTransactionToDto(transactionsEntity))
-        .collect(Collectors.toList());
+        return transactionRepository.findAllByUserId(userId)
+                .stream().map(transactionsEntity -> convertTransactionToDto(transactionsEntity))
+                .collect(Collectors.toList());
     }
 
     /**
-     * Takes a list of {@link UsersEntity}
+     * Takes a list of {@link UserDTO}
      * @param
      * @return
      */
@@ -53,6 +53,17 @@ public class UserService implements IUserService{
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Takes a list of {@link TransactionDTO}
+     * @param
+     * @return
+     */
+    @Override
+    public List<TransactionDTO> findAllTransactions() {
+        return transactionRepository.findAllTransactions()
+                .stream().map(transactionsEntity -> convertTransactionToDto(transactionsEntity))
+                .collect(Collectors.toList());
+    }
 
 
     private UserDTO convertUserEntityToDto(UsersEntity usersEntity) {
