@@ -23,7 +23,7 @@ spring:
 
   # Database
   datasource:
-    url: jdbc:postgresql://db:5432/nab-preparation
+    url: jdbc:postgresql://db:5432/postgres
     username: postgres
     password: password
 
@@ -38,7 +38,7 @@ spring:
           use_jdbc_metadata_defaults: false
 
   flyway:
-    url: 'jdbc:postgresql://db:5432/nab-preparation'
+    url: 'jdbc:postgresql://db:5432/postgres'
     user: 'postgres'
     password: 'password'
 
