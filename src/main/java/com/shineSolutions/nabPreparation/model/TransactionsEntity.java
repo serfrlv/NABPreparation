@@ -1,5 +1,6 @@
 package com.shineSolutions.nabPreparation.model;
 
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name="transactions")
 @Data
+@Builder
 public class TransactionsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

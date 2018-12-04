@@ -1,5 +1,6 @@
 package com.shineSolutions.nabPreparation.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="users")
 @Data
+@Builder
 public class UsersEntity {
 
     @Id
