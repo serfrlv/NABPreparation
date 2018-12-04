@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: test
+    active: prod
 
   #flyway
   flyway:
@@ -19,28 +19,26 @@ management:
       enabled: true
 ---
 spring:
-  profiles: dev
+  profiles: prod
+
   # Database
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/nab-preparation
+    url: jdbc:postgresql://db:5432/nab-preparation
     username: postgres
     password: password
-    # JPA properties
 
-    hibernate:
-      ddl-auto: create-drop
-    # JPA properties
+  # JPA properties
   jpa:
-    generate-ddl: true
     show-sql: true
     database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: 'org.hibernate.dialect.PostgreSQLDialect'
+        temp:
+          use_jdbc_metadata_defaults: false
 
   flyway:
-    url: 'jdbc:postgresql://localhost:5432/nab-preparation'
+    url: 'jdbc:postgresql://db:5432/nab-preparation'
     user: 'postgres'
     password: 'password'
 
@@ -49,8 +47,7 @@ server:
 
 ---
 spring:
-  profiles: test
-  # JPA properties
+  profiles: dev
   datasource:
     schema: 'classpath*:db/h2/schema.sql'
     data: 'classpath*:db/h2/data.sql'

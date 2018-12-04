@@ -17,7 +17,7 @@ import java.util.Map;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes=NabPreparationApplication.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"management.port=0"})
 public class NabPreparationApplicationTests {
 
@@ -42,7 +42,7 @@ public class NabPreparationApplicationTests {
 	public void shouldReturn200WhenSendingRequestToManagementEndpoint() throws Exception {
 		@SuppressWarnings("rawtypes")
 		ResponseEntity<Map> entity = this.testRestTemplate.getForEntity(
-				"http://localhost:" + this.mgt + "/manage/", Map.class);
+				"http://localhost:" + this.port + "/manage/", Map.class);
 		then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
 	}
 

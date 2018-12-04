@@ -1,0 +1,16 @@
+version: '2'
+services:
+  app:
+    image: com.shineSolutions/nab-preparation-transaction-docker:latest
+    ports:
+    - 8090:8090
+    depends_on:
+    - db
+  db:
+    image: postgres
+    ports:
+    - 5432:5432
+    environment:
+    - POSTGRES_PASSWORD=password
+    - POSTGRES_USER=postgres
+    - POSTGRES_DB=nap-preparation
