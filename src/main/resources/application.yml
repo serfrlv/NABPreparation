@@ -1,12 +1,8 @@
-server:
-  port: 8090
-
-# Enabling H2 Console
 spring:
-  h2:
-    console:
-      enabled: true
-#flyway
+  profiles:
+    active: test
+
+  #flyway
   flyway:
     check-location: true
 
@@ -17,6 +13,57 @@ management:
       base-path: "/manage"
       exposure:
         include: "*"
+
   endpoint:
     shutdown:
       enabled: true
+---
+spring:
+  profiles: dev
+  # Database
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/nab-preparation
+    username: postgres
+    password: password
+    # JPA properties
+
+    hibernate:
+      ddl-auto: create-drop
+    # JPA properties
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create-drop
+
+  flyway:
+    url: 'jdbc:postgresql://localhost:5432/nab-preparation'
+    user: 'postgres'
+    password: 'password'
+
+server:
+  port: 8090
+
+---
+spring:
+  profiles: test
+  # JPA properties
+  datasource:
+    schema: 'classpath*:db/h2/schema.sql'
+    data: 'classpath*:db/h2/data.sql'
+  # JPA properties
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    database: h2
+    hibernate:
+
+  # Enabling H2 Console
+  h2:
+    console:
+      enabled: true
+server:
+  port: 8081
