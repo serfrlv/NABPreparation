@@ -37,3 +37,15 @@ Create a docker image with the app
 - Add the actuator starter to the project.  https://www.baeldung.com/spring-boot-actuatorsd.
 - Add the swagger Restful API documentation file.
 - Add the docker file.
+
+#2018-12-04 fix
+- delete the  duplicate the root of keys in yaml.
+- Use @Slf4j on the class instead of creating a logger
+- Replace the setter injection with field or constructor injection in UserRepositoryImpl 
+
+#2018-12-05 fix
+- change the database name to postgres. By this way won’t need to create a database in your docker configuration
+- revert the change you made in the Dockerfile
+- add unit tests that do not use spring in any way.  Use mockito to mock dependencies 
+- add some rest assured tests.  http://rest-assured.io/
+
