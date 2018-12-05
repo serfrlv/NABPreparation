@@ -1,7 +1,9 @@
 package com.shineSolutions.nabPreparation.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -12,6 +14,8 @@ import java.time.LocalDate;
 @Table(name="transactions")
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TransactionsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
