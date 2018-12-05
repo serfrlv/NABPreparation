@@ -24,7 +24,6 @@ apply plugin: 'io.spring.dependency-management'
 // tag::plugin[]
 apply plugin: 'com.palantir.docker'
 // end::plugin[]
-description = "NABPreparation"
 //This is used as the docker image prefix
 group = 'com.shineSolutions'
 

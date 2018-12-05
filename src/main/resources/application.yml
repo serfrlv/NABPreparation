@@ -1,32 +1,6 @@
 spring:
   profiles:
-    active: prod
-
-## Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
----
-spring:
-  profies: prod
-  datasource:
-    url: 'jdbc:postgresql://localhost:5432/postgres'
-    username: postgres
-    password: password
-  # The SQL dialect makes Hibernate generate better SQL for the chosen database
-  jpa:
-    properties:
-      hibernate:
-        dialect: 'org.hibernate.dialect.PostgreSQLDialect'
-        temp:
-          use_jdbc_metadata_defaults: false
-    # Hibernate ddl auto (create, create-drop, validate, update)
-    hibernate.ddl-auto: update
-
-  # Enabling H2 Console
-  h2:
-    console:
-      enabled: true
-  #flyway
-  flyway:
-    check-location: true
+    active: dev
 
 # Actuator / Management
 management:
@@ -41,27 +15,28 @@ management:
 server:
   port: 8090
 
+
+## Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
 ---
 spring:
-  profies: dev
+  profiles: prod
+  datasource:
+    url: 'jdbc:postgresql://localhost:5432/postgres'
+    username: postgres
+    password: password
+  # The SQL dialect makes Hibernate generate better SQL for the chosen database
+
+
+
+
+---
+spring:
+  profiles: dev
 
   # Enabling H2 Console
   h2:
     console:
       enabled: true
   #flyway
-  flyway:
-    check-location: true
 
-# Actuator / Management
-management:
-  endpoints:
-    web:
-      base-path: "/manage"
-      exposure:
-        include: "*"
-  endpoint:
-    shutdown:
-      enabled: true
-server:
-  port: 9090
+
