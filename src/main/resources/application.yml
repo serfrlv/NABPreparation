@@ -15,6 +15,10 @@ management:
 server:
   port: 8090
 
+#flyway
+flyway:
+  check-location: true
+
 
 ## Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
 ---
@@ -26,8 +30,12 @@ spring:
     password: password
   # The SQL dialect makes Hibernate generate better SQL for the chosen database
 
-
-
+  jpa:
+    properties:
+      hibernate:
+        dialect: 'org.hibernate.dialect.PostgreSQLDialect'
+        temp:
+          use_jdbc_metadata_defaults: false
 
 ---
 spring:
@@ -37,6 +45,3 @@ spring:
   h2:
     console:
       enabled: true
-  #flyway
-
-
