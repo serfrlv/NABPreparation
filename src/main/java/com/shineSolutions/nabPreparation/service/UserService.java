@@ -8,8 +8,6 @@ import com.shineSolutions.nabPreparation.repository.TransactionRepositoryImp;
 import com.shineSolutions.nabPreparation.repository.UserRepositoryImp;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,7 +46,7 @@ public class UserService implements IUserService{
      */
     @Override
     public List<UserDTO> findAllUsers() {
-        List<UsersEntity> usersEntities = userRepository.findUsers();
+        List<UsersEntity> usersEntities = userRepository.findAllUsers();
         return usersEntities.stream().map(usersEntity -> convertUserEntityToDto(usersEntity))
                 .collect(Collectors.toList());
     }
@@ -65,6 +63,15 @@ public class UserService implements IUserService{
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public UserDTO addUser(UserDTO user) {
+         return convertUserEntityToDto(userRepository.addUser(convertUserDtotoEntity(user)));
+    }
+
+    @Override
+    public UserDTO findUserByUserId(long userId) {
+        return convertUserEntityToDto(userRepository.findUserByUserId(userId));
+    }
 
     private UserDTO convertUserEntityToDto(UsersEntity usersEntity) {
         return UserDTO.builder()
@@ -81,6 +88,13 @@ public class UserService implements IUserService{
                 .targetUserId(transactionsEntity.getTargetUserId())
                 .targetUserName(transactionsEntity.getTargetUserName())
                 .transDate(transactionsEntity.getDate())
+                .build();
+    }
+
+    private UsersEntity convertUserDtotoEntity(UserDTO userDTO){
+        return UsersEntity.builder()
+                .userId(userDTO.getUserId())
+                .name(userDTO.getUserName())
                 .build();
     }
 

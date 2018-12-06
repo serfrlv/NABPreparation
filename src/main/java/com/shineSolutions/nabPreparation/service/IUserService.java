@@ -11,4 +11,8 @@ public interface IUserService {
      List<UserDTO> findAllUsers();
 
      List<TransactionDTO> findAllTransactions();
+
+     UserDTO addUser(UserDTO userDTO);
+
+     UserDTO findUserByUserId(long userId);
 }

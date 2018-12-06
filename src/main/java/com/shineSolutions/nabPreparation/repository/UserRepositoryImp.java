@@ -17,16 +17,42 @@ public class UserRepositoryImp {
     @Autowired
     private UserRepository userRepository;
 
-    @HystrixCommand(fallbackMethod = "fallback_findAllByUser", commandProperties = {
+
+    @HystrixCommand(fallbackMethod = "fallback_findAllUsers", commandProperties = {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
     })
-    public List<UsersEntity> findUsers(){
+    public List<UsersEntity> findAllUsers(){
         return (List<UsersEntity>) userRepository.findAll();
     }
 
-    public List<UsersEntity> fallback_findAllByUser() {
-        log.error("finding all transactions has a time out exception!");
+
+    @HystrixCommand(fallbackMethod = "fallback_addUser", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
+    })
+    public UsersEntity addUser(UsersEntity usersEntity){
+        return userRepository.save(usersEntity);
+    }
+
+
+    @HystrixCommand(fallbackMethod = "fallback_findUserByUserId", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
+    })
+    public UsersEntity findUserByUserId(long  userId){
+        return userRepository.findUsersEntityByUserId(userId);
+    }
+
+    public UsersEntity fallback_findUserByUserId(long userId, Throwable e) {
+        log.error(e.getMessage());
+        return new UsersEntity();
+    }
+
+    public List<UsersEntity> fallback_findAllUsers(Throwable e) {
+        log.error(e.getMessage());
         return new ArrayList();
     }
 
+    public UsersEntity fallback_addUser(UsersEntity usersEntity, Throwable e) {
+        log.error(e.getMessage());
+        return new UsersEntity();
+    }
 }

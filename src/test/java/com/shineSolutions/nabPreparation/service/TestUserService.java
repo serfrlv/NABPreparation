@@ -43,7 +43,10 @@ public class TestUserService {
         users.add(userEntity2);
         UsersEntity userEntity3 = UsersEntity.builder().userId(3l).name("Jimmy.White").build();
         users.add(userEntity3);
-        Mockito.when(usersRepo.findUsers()).thenReturn(users);
+        Mockito.when(usersRepo.findAllUsers()).thenReturn(users);
+        UsersEntity newUserEntity = UsersEntity.builder().userId(4l).name("David.Jones").build();
+        Mockito.when(usersRepo.addUser(newUserEntity)).thenReturn(newUserEntity);
+
         ArrayList<TransactionsEntity> transactionsEntities = new ArrayList();
         ArrayList<TransactionsEntity> transactionsEntities1 = new ArrayList();
         TransactionsEntity transactionsEntity1 = TransactionsEntity.builder()
@@ -80,5 +83,11 @@ public class TestUserService {
     public void shouldGetAllTransactions(){
         Collection<TransactionDTO> entities = this.userService.findAllTransactions();
         assertThat(entities.size()).isEqualTo(3);
+    }
+
+    @Test
+    public void  shouldAddNewUser(){
+        UserDTO user =  this.userService.addUser(UserDTO.builder().userId(4l).userName("David.Jones").build());
+        assertThat(user.getUserName()).isEqualTo("David.Jones");
     }
 }
