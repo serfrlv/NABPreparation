@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestUserService {
@@ -43,9 +43,9 @@ public class TestUserService {
         users.add(userEntity2);
         UsersEntity userEntity3 = UsersEntity.builder().userId(3l).name("Jimmy.White").build();
         users.add(userEntity3);
-        Mockito.when(usersRepo.findAllUsers()).thenReturn(users);
+        when(usersRepo.findAllUsers()).thenReturn(users);
         UsersEntity newUserEntity = UsersEntity.builder().userId(4l).name("David.Jones").build();
-        Mockito.when(usersRepo.addUser(newUserEntity)).thenReturn(newUserEntity);
+        when(usersRepo.addUser(newUserEntity)).thenReturn(newUserEntity);
 
         ArrayList<TransactionsEntity> transactionsEntities = new ArrayList();
         ArrayList<TransactionsEntity> transactionsEntities1 = new ArrayList();
@@ -63,8 +63,8 @@ public class TestUserService {
                 .id(3l).userId(2l).userName("Tom.Hanks").amount(BigDecimal.valueOf(25))
                 .targetUserId(3l).targetUserName("Jimmy.White").build();
         transactionsEntities.add(transactionsEntity3);
-        Mockito.when(transRepo.findAllTransactions()).thenReturn(transactionsEntities);
-        Mockito.when(transRepo.findAllByUserId(1l)).thenReturn(transactionsEntities1);
+        when(transRepo.findAllTransactions()).thenReturn(transactionsEntities);
+        when(transRepo.findAllByUserId(1l)).thenReturn(transactionsEntities1);
     }
 
     @Test
