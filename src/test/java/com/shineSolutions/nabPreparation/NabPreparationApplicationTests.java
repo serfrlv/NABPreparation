@@ -34,7 +34,7 @@ public class NabPreparationApplicationTests {
 	public void shouldReturn200WhenSendingRequestToController() throws Exception {
 		@SuppressWarnings("rawtypes")
 		ResponseEntity<Object[]> entity = this.testRestTemplate.getForEntity(
-				"http://localhost:" + this.port + "/user/", Object[].class);
+				"http://localhost:" + this.port + "/user", Object[].class);
 		then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
 	}
 
