@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -17,6 +18,16 @@ public class UserRepositoryImp {
     @Autowired
     private UserRepository userRepository;
 
+    @HystrixCommand(fallbackMethod = "fallback_addUser", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
+    })
+    public UsersEntity addUser(UsersEntity usersEntity){
+        return userRepository.save(usersEntity);
+    }
+    private UsersEntity  fallback_addUser(UsersEntity usersEntity, Throwable e) {
+        log.error(e.getMessage());
+        return new UsersEntity();
+    }
 
     @HystrixCommand(fallbackMethod = "fallback_findAllUsers", commandProperties = {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
@@ -24,35 +35,40 @@ public class UserRepositoryImp {
     public List<UsersEntity> findAllUsers(){
         return (List<UsersEntity>) userRepository.findAll();
     }
-
-
-    @HystrixCommand(fallbackMethod = "fallback_addUser", commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
-    })
-    public UsersEntity addUser(UsersEntity usersEntity){
-        return userRepository.save(usersEntity);
-    }
-
-
-    @HystrixCommand(fallbackMethod = "fallback_findUserByUserId", commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
-    })
-    public UsersEntity findUserByUserId(long  userId){
-        return userRepository.findUsersEntityByUserId(userId);
-    }
-
-    public UsersEntity fallback_findUserByUserId(long userId, Throwable e) {
-        log.error(e.getMessage());
-        return new UsersEntity();
-    }
-
-    public List<UsersEntity> fallback_findAllUsers(Throwable e) {
+    @SuppressWarnings("unchecked")
+    private List<UsersEntity> fallback_findAllUsers(Throwable e) {
         log.error(e.getMessage());
         return new ArrayList();
     }
 
-    public UsersEntity fallback_addUser(UsersEntity usersEntity, Throwable e) {
+    @HystrixCommand(fallbackMethod = "fallback_deleteByUserId", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
+    })
+    public void deleteByUserId(long userId){ userRepository.deleteById(userId);}
+    private void fallback_deleteByUserId(long userId, Throwable e) {
         log.error(e.getMessage());
-        return new UsersEntity();
     }
+
+    @HystrixCommand(fallbackMethod = "fallback_findUserByUserId", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
+    })
+    public Optional<UsersEntity> findUserByUserId(long  userId){
+        return userRepository.findById(userId);
+    }
+    private Optional<UsersEntity>  fallback_findUserByUserId(long userId, Throwable e) {
+        log.error(e.getMessage());
+        return Optional.empty();
+    }
+
+    @HystrixCommand(fallbackMethod = "fallback_saveUser", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
+    })
+    public void saveUser(UsersEntity usersEntity){
+        userRepository.save(usersEntity);
+    }
+    private void fallback_saveUser(UsersEntity usersEntity, Throwable e) {
+        log.error(e.getMessage());
+
+    }
+
 }
