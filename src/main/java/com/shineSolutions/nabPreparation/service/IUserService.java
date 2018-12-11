@@ -4,6 +4,7 @@ import com.shineSolutions.nabPreparation.model.TransactionDTO;
 import com.shineSolutions.nabPreparation.model.UserDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IUserService {
      List<TransactionDTO> findTransactionsByUserId(Long userId);
@@ -14,5 +15,9 @@ public interface IUserService {
 
      UserDTO addUser(UserDTO userDTO);
 
-     UserDTO findUserByUserId(long userId);
+     Optional<UserDTO> findUserByUserId(Long userId);
+
+     void deleteByUserId(Long userId);
+
+     void update(Long userId, UserDTO userDtO);
 }

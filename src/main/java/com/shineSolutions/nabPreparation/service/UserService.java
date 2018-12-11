@@ -6,9 +6,11 @@ import com.shineSolutions.nabPreparation.model.UserDTO;
 import com.shineSolutions.nabPreparation.model.UsersEntity;
 import com.shineSolutions.nabPreparation.repository.TransactionRepositoryImp;
 import com.shineSolutions.nabPreparation.repository.UserRepositoryImp;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -65,12 +67,32 @@ public class UserService implements IUserService{
 
     @Override
     public UserDTO addUser(UserDTO user) {
-         return convertUserEntityToDto(userRepository.addUser(convertUserDtotoEntity(user)));
+        userRepository.addUser(convertUserDtotoEntity(user));
+        return user;
     }
 
     @Override
-    public UserDTO findUserByUserId(long userId) {
-        return convertUserEntityToDto(userRepository.findUserByUserId(userId));
+    public void deleteByUserId(Long userId) {
+        userRepository.deleteByUserId(userId);
+    }
+
+
+    @Override
+    public void update(Long userId, UserDTO userDtO) {
+        Optional<UsersEntity> usersEntityOptional = userRepository.findUserByUserId(Long.valueOf(userId));
+        if(usersEntityOptional.isPresent()){
+            usersEntityOptional.get().setName(userDtO.getUserName());
+            userRepository.saveUser(usersEntityOptional.get());
+        }
+    }
+
+    @Override
+    public Optional<UserDTO> findUserByUserId(Long userId) {
+        if(userRepository.findUserByUserId(userId).isPresent()){
+            return Optional.of(convertUserEntityToDto(
+                    userRepository.findUserByUserId(userId).get()));
+        }
+        return Optional.empty();
     }
 
     private UserDTO convertUserEntityToDto(UsersEntity usersEntity) {
