@@ -7,6 +7,7 @@ import org.springframework.hateoas.ResourceSupport;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class UserDTO  extends ResourceSupport {
 
     private Long  userId;
