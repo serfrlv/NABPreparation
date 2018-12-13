@@ -6,6 +6,8 @@ import com.shineSolutions.nabPreparation.model.UserDTO;
 import com.shineSolutions.nabPreparation.model.UsersEntity;
 import com.shineSolutions.nabPreparation.repository.TransactionRepositoryImp;
 import com.shineSolutions.nabPreparation.repository.UserRepositoryImp;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +25,7 @@ public class UserService implements IUserService{
     private UserRepositoryImp userRepository;
 
 
-
+    @Autowired
     public UserService(UserRepositoryImp userRepository,TransactionRepositoryImp transactionRepository){
         this.transactionRepository = transactionRepository;
         this.userRepository = userRepository;
