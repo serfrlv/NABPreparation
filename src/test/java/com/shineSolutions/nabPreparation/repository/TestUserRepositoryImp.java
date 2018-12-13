@@ -4,6 +4,7 @@ import com.netflix.config.ConfigurationManager;
 import com.netflix.hystrix.Hystrix;
 import com.netflix.hystrix.HystrixCircuitBreaker;
 import com.netflix.hystrix.HystrixCommandKey;
+import com.shineSolutions.nabPreparation.exception.UserNotFoundException;
 import com.shineSolutions.nabPreparation.model.UsersEntity;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -11,14 +12,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 @EnableCircuitBreaker
@@ -36,7 +38,7 @@ public class TestUserRepositoryImp {
         resetHystrix();
         openCircuitBreakerAfterOneFailingRequest();
         UsersEntity usersEntity = UsersEntity.builder().name("James.Bond").userId(1l).build();
-        Mockito.when(usersRepo.save(usersEntity)).thenReturn(usersEntity);
+        when(usersRepo.save(usersEntity)).thenReturn(usersEntity);
     }
 
     private void resetHystrix() {
@@ -53,6 +55,12 @@ public class TestUserRepositoryImp {
                 setProperty("hystrix.command.findOneById.circuitBreaker.requestVolumeThreshold", 1);
     }
 
+    @Test(expected = UserNotFoundException.class)
+    public void findUser_userNotFound_exceptionThrown() {
+        when(usersRepo.findById(1L)).thenReturn(Optional.empty());
+        userRepositoryImp.findUserByUserId(1L);
+    }
+
     @Ignore
     @Test
     public void circuitBreakerOpenOnException() throws IOException, InterruptedException {
@@ -63,7 +71,7 @@ public class TestUserRepositoryImp {
     @Ignore
     @Test
     public void find_all_users_timeout_should_return_empty(){
-        Mockito.when(usersRepo.findAll()).thenThrow(NullPointerException.class);
+        when(usersRepo.findAll()).thenThrow(NullPointerException.class);
         assertThat(userRepositoryImp.findAllUsers()).isEmpty();
     }
 
