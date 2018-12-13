@@ -35,10 +35,7 @@ public class TestUserRepositoryImp {
 
     @Before
     public void setup(){
-        resetHystrix();
-        openCircuitBreakerAfterOneFailingRequest();
-        UsersEntity usersEntity = UsersEntity.builder().name("James.Bond").userId(1l).build();
-        when(usersRepo.save(usersEntity)).thenReturn(usersEntity);
+
     }
 
     private void resetHystrix() {
