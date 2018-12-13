@@ -2,17 +2,18 @@ package com.shineSolutions.nabPreparation.repository;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import com.shineSolutions.nabPreparation.exception.UserNotFoundException;
 import com.shineSolutions.nabPreparation.model.UsersEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@Service
+@Component
 public class UserRepositoryImp {
 
     @Autowired
@@ -53,6 +54,11 @@ public class UserRepositoryImp {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
     })
     public Optional<UsersEntity> findUserByUserId(long  userId){
+
+        Optional<UsersEntity> user = userRepository.findById(userId);
+        if (!user.isPresent()) {
+            throw new UserNotFoundException(String.format("User %s not found" , userId));
+        }
         return userRepository.findById(userId);
     }
     private Optional<UsersEntity>  fallback_findUserByUserId(long userId, Throwable e) {

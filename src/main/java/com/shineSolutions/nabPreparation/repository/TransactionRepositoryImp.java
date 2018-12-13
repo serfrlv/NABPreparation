@@ -5,12 +5,12 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.shineSolutions.nabPreparation.model.TransactionsEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Component
 @Slf4j
 public class TransactionRepositoryImp {
 
