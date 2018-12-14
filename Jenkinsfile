@@ -31,6 +31,12 @@ pipeline {
                     sh "docker-compose up"
                }
           }
+
+          stage("Stop Docker"){
+               steps{
+                    sh "docker stop \$(docker ps -aq)"
+               }
+          }
      }
 
 }
