@@ -12,15 +12,9 @@ pipeline {
                }
           }
 
-          stage("Package") {
-               steps {
-                    sh "./gradlew build docker"
-               }
-          }
-
           stage("Docker build") {
                steps {
-                    sh "docker build -t com.shineSolutions/nab-preparation-transaction-docker"
+                    sh "./gradlew build docker"
                }
           }
 
