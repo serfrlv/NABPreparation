@@ -11,8 +11,7 @@ pipeline {
                     sh "./gradlew test"
                }
           }
-     
-    
+
           stage("Package") {
                steps {
                     sh "./gradlew build docker"
@@ -21,34 +20,23 @@ pipeline {
 
           stage("Docker build") {
                steps {
-                    sh "docker build -t nikhilnidhi/calculator_1 ."
+                    sh "docker build -t com.shineSolutions/nab-preparation-transaction-docker"
                }
           }
 
-          stage("Docker push") {
+          stage("Deploy to docker 8091") {
                steps {
-                    sh "docker login -u username -p password"
 
-                    sh "docker push nikhilnidhi/calculator_1"
+                    sh "docker run -d --rm -p 8091:8090 --name nab-preparation com.shineSolutions/nab-preparation-transaction-docker"
+
                }
           }
-stage("Deploy to staging") {
-     steps {
- 
-          sh "docker run -d --rm -p 8765:8080 --name calculator_1 nikhilnidhi/calculator_1"
-     }
-}
 
-stage("Acceptance test") {
-     steps {
-          sleep 60
-          sh "./acceptance_test.sh"
+          stage("Deploy to docker with PostSQL"){
+               steps{
+                    sh "docker-compose up"
+               }
+          }
      }
-}
-     }
-  post {
-     always {
-          sh "docker stop calculator_1"
-     }
-}
+
 }
