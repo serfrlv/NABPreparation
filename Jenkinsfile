@@ -13,26 +13,25 @@ pipeline {
           }
      
     
-stage("Package") {
-     steps {
-          sh "./gradlew build docker"
-     }
-}
+          stage("Package") {
+               steps {
+                    sh "./gradlew build docker"
+               }
+          }
 
-stage("Docker build") {
-     steps {
-      
-          sh "docker build -t nikhilnidhi/calculator_1 ."
-     }
-}
+          stage("Docker build") {
+               steps {
+                    sh "docker build -t nikhilnidhi/calculator_1 ."
+               }
+          }
 
-stage("Docker push") {
-     steps {
-   sh "docker login -u username -p password"
+          stage("Docker push") {
+               steps {
+                    sh "docker login -u username -p password"
 
-sh "docker push nikhilnidhi/calculator_1"
-     }
-}
+                    sh "docker push nikhilnidhi/calculator_1"
+               }
+          }
 stage("Deploy to staging") {
      steps {
  
