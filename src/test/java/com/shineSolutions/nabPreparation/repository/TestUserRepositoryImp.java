@@ -35,10 +35,7 @@ public class TestUserRepositoryImp {
 
     @Before
     public void setup(){
-        resetHystrix();
-        openCircuitBreakerAfterOneFailingRequest();
-        UsersEntity usersEntity = UsersEntity.builder().name("James.Bond").userId(1l).build();
-        when(usersRepo.save(usersEntity)).thenReturn(usersEntity);
+
     }
 
     private void resetHystrix() {
@@ -59,25 +56,6 @@ public class TestUserRepositoryImp {
     public void findUser_userNotFound_exceptionThrown() {
         when(usersRepo.findById(1L)).thenReturn(Optional.empty());
         userRepositoryImp.findUserByUserId(1L);
-    }
-
-    @Ignore
-    @Test
-    public void circuitBreakerOpenOnException() throws IOException, InterruptedException {
-
-    }
-
-
-    @Ignore
-    @Test
-    public void find_all_users_timeout_should_return_empty(){
-        when(usersRepo.findAll()).thenThrow(NullPointerException.class);
-        assertThat(userRepositoryImp.findAllUsers()).isEmpty();
-    }
-
-
-    private void waitUntilCircuitBreakerOpens() throws InterruptedException {
-        Thread.sleep(1000);
     }
 
 
