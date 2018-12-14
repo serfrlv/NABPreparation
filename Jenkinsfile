@@ -17,15 +17,7 @@ pipeline {
                     sh "./gradlew build docker"
                }
           }
-
-          stage("Deploy to docker 8091") {
-               steps {
-
-                    sh "docker run -d --rm -p 8091:8090 --name nab-preparation com.shineSolutions/nab-preparation-transaction-docker"
-
-               }
-          }
-
+/*
           stage("Deploy to docker with PostSQL"){
                steps{
                     sh "docker-compose up"
@@ -37,6 +29,6 @@ pipeline {
                     sh "docker stop \$(docker ps -aq)"
                }
           }
+*/
      }
-
 }
