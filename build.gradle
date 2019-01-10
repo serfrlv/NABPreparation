@@ -7,15 +7,16 @@ buildscript {
 			url "https://plugins.gradle.org/m2/"
 		}
 		mavenCentral()
+		mavenLocal()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		// tag::build[]
 		classpath('gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.13.0')
+		classpath 'com.shineSolutions:gradle-demo:1.0.0-SNAPSHOT'
 		// end::build[]
 	}
 }
-
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
@@ -23,6 +24,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 // tag::plugin[]
 apply plugin: 'com.palantir.docker'
+apply plugin: 'com.shinesolutions.demo.plugin'
 // end::plugin[]
 //This is used as the docker image prefix
 group = 'com.shineSolutions'
@@ -80,4 +82,12 @@ dependencyManagement {
  
 test {
 	systemProperty 'spring.profiles.active', 'dev'
+}
+
+task techprimers{
+	println "hello tchprimers"
+}
+
+demoSetting {
+	message = "Hi from an extension"
 }

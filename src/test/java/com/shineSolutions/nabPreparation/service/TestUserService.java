@@ -6,6 +6,7 @@ import com.shineSolutions.nabPreparation.model.UserDTO;
 import com.shineSolutions.nabPreparation.model.UsersEntity;
 import com.shineSolutions.nabPreparation.repository.TransactionRepositoryImp;
 import com.shineSolutions.nabPreparation.repository.UserRepositoryImp;
+import org.apache.el.stream.Stream;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,8 +16,7 @@ import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -89,5 +89,29 @@ public class TestUserService {
     public void  shouldAddNewUser(){
         UserDTO user =  this.userService.addUser(UserDTO.builder().userId(4l).userName("David.Jones").build());
         assertThat(user.getUserName()).isEqualTo("David.Jones");
+    }
+
+    @Test
+    public void test(){
+
+        int[] tmp = {3, 4, 3, 2, 3, -1, 3, 3};
+        List intList = Arrays.asList(tmp);
+        int[] result = intList.stream().mapToInt(i->(int)i).toArray();
+
+
+        Map count = new HashMap<Integer,Integer>();
+        int maxcount = tmp.length/2+1;
+        for(int i=0;i<tmp.length;i++){
+            if(count.containsKey(tmp[i])){
+                int t = (int)count.get(tmp[i]);
+                t++;
+                count.put(tmp[i],t);
+                if(t==maxcount){
+                    System.out.println(i);
+                }
+            }else{
+                count.put(tmp[i],1);
+            }
+        }
     }
 }
