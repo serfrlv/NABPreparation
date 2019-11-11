@@ -1,34 +1,19 @@
 pipeline {
-     agent any
-     stages {
-          stage("Compile") {
-               steps {
-                    sh "./gradlew clean build"
-               }
-          }
-          stage("Unit test") {
-               steps {
-                    sh "./gradlew test"
-               }
-          }
-
-          stage("Docker build") {
-               steps {
-                    sh "./gradlew build docker"
-               }
-          }
-/*
-          stage("Deploy to docker with PostSQL"){
-               steps{
-                    sh "docker-compose up"
-               }
-          }
-
-          stage("Stop Docker"){
-               steps{
-                    sh "docker stop \$(docker ps -aq)"
-               }
-          }
-*/
-     }
+  agent any
+  stages {
+  stage('Stage 1') {
+      steps {
+        script {
+          echo 'Stage 1'
+        }
+      }
+    }
+  stage('Stage 2') {
+      steps {
+        script {
+          echo 'Stage 2'
+        }
+      }
+    }
+  }
 }
