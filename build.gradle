@@ -23,6 +23,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 // tag::plugin[]
 apply plugin: 'com.palantir.docker'
+apply plugin: 'checkstyle'
 // end::plugin[]
 //This is used as the docker image prefix
 group = 'com.shineSolutions'
@@ -37,6 +38,13 @@ task unpack(type: Copy) {
 	dependsOn bootJar
 	from(zipTree(tasks.bootJar.outputs.files.singleFile))
 	into("build/dependency")
+}
+
+tasks.withType(Checkstyle) {
+ ignoreFailures = true
+ reports {
+ html.enabled = true
+ }
 }
 
 docker {
