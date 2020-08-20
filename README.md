@@ -49,3 +49,10 @@ Create a docker image with the app
 - add unit tests that do not use spring in any way.  Use mockito to mock dependencies 
 - add some rest assured tests.  http://rest-assured.io/
 
+<<<<<<< HEAD
+=======
+#2020-08-20 add for test
+- add line for #1 commit
+
+#2020-08-21 add for test revert
+- add line for #2 commit
