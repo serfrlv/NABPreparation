@@ -1,5 +1,5 @@
 # NABPreparation
-#preparation for the NAB 
+#preparation for the NAB
 Create a Rest API to retrieve transaction with the following tech stack
 Spring Boot
 Java 8
@@ -41,13 +41,18 @@ Create a docker image with the app
 #2018-12-04 fix
 - delete the  duplicate the root of keys in yaml.
 - Use @Slf4j on the class instead of creating a logger
-- Replace the setter injection with field or constructor injection in UserRepositoryImpl 
+- Replace the setter injection with field or constructor injection in UserRepositoryImpl
 
 #2018-12-05 fix
 - change the database name to postgres. By this way won’t need to create a database in your docker configuration
 - revert the change you made in the Dockerfile
-- add unit tests that do not use spring in any way.  Use mockito to mock dependencies 
+- add unit tests that do not use spring in any way.  Use mockito to mock dependencies
 - add some rest assured tests.  http://rest-assured.io/
 
 #2021-11-09 fix
-- Add modify lines for commit1. 
+- Add modify lines for commit1.
+#2020-08-20 add for test
+- add line for #1 commit
+
+#2020-08-21 add for test revert
+- add line for #2 commit
