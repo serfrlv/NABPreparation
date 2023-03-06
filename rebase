@@ -4,3 +4,4 @@ rebase -change -from remote -2
 
 
 revert-1: commit -1
+revert-1: commit -2
