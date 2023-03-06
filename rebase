@@ -1,3 +1,7 @@
 rebasefa-stack-1x
-rebase -change -from remote -1 
+rebase -change -from remote -1
 rebase -change -from remote -2
+
+
+revert-1: commit -1
+revert-1: commit -2
